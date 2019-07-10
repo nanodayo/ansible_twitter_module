@@ -1,0 +1,20 @@
+- name: test for twitter module
+  hosts: all
+  connection: local
+  vars:
+    consumer_key : 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+    consumer_secret_key : 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+    access_token : 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+    access_token_secret : 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+    tweet: "にゃーん"
+
+  tasks:
+    - name: tweet
+      twitter_tweet:
+        state: present
+        tweet: "{{ tweet }}"
+        consumer_key: "{{ consumer_key }}"
+        consumer_secret_key: "{{ consumer_secret_key }}"
+        access_token: "{{ access_token }}"
+        access_token_secret: "{{ access_token_secret }}"
+
