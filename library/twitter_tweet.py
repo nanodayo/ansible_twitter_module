@@ -45,7 +45,8 @@ def main():
             'tweet': {'required': True}
         },
     )
-    tweet_text = module.params.get('tweet').decode('utf-8')
+    #tweet_text = module.params.get('tweet').decode('utf-8')
+    tweet_text = module.params.get('tweet')
     t = Twitter(auth=OAuth(module.params.get('access_token'), module.params.get('access_token_secret'), module.params.get('consumer_key'), module.params.get('consumer_secret_key')))
     t.statuses.update(status=tweet_text)
     changed=True
