@@ -3,7 +3,7 @@
 ## command example
 
 ```
-# ansible-playbook -c local -M . -e"tweet=このTweetはansible-playbookで行っています。" -i hosts tweet_playbook.yml
+# ansible-playbook -c local -e"tweet=このTweetはansible-playbookで行っています。" -i hosts tweet_playbook.yml
 ```
 
 ## 機能など
@@ -12,13 +12,14 @@
 
 # 動作要件
 
+python 3 でしか動きません。
 python twitter モジュールを前提にしてます。
 
 ```
 # pip install twitter
 ```
 
-twitterのアクセストークンなどは各自取得が必要です。
+twitterのアクセストークンなどは各自取得が必要です。sample playbookのvarsに記載されている各変数を設定してください。
 
 # 冪等性
 
