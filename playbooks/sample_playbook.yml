@@ -7,7 +7,7 @@
     consumer_secret_key : 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
     access_token : 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
     access_token_secret : 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
-    tweet: "にゃーん"
+    tweet: "This tweet posted by ansible module"
 
   tasks:
     - name: tweet

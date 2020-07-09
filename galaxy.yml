@@ -1,0 +1,12 @@
+namespace: "nanodayo"
+name: "ansible_twitter"
+version: "0.0.1"
+description: "Various content pieces."
+authors:
+  - "Daisuke Matsui <nanodayo.work@gmail.com>"
+license:
+  - "Apache-2.0"
+readme: README.md
+tags: []
+dependencies: {}
+repository: https://github.com/nanodayo/ansible_twitter_module
