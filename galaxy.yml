@@ -1,7 +1,7 @@
 namespace: "nanodayo"
 name: "ansible_twitter"
 version: "0.0.1"
-description: "Various content pieces."
+description: "module for twitter."
 authors:
   - "Daisuke Matsui <nanodayo.work@gmail.com>"
 license:
