@@ -47,7 +47,7 @@ def main():
     #tweet_text = module.params.get('tweet').decode('utf-8')
     tweet_text = module.params.get('tweet')
     tweet_result = Twitter(
-        auth = OAuth(
+        auth=OAuth(
             module.params.get('access_token'),
             module.params.get('access_token_secret'),
             module.params.get('consumer_key'),
