@@ -26,8 +26,8 @@ EXAMPLES = '''
 '''
 
 from ansible.module_utils.basic import AnsibleModule
-import sys
-import codecs
+#import sys
+#import codecs
 from twitter import *
 
 RETURN = '''
@@ -57,5 +57,5 @@ def main():
     tweet_result.statuses.update(status=tweet_text)
     changed = True
 
-    module.exit_json(changed=changed, item={'tweet' : tweet_text})
+    module.exit_json(changed=changed, item={'tweet': tweet_text})
 main()
