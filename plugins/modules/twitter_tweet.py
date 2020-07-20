@@ -36,11 +36,11 @@ RETURN = '''
 def main():
     module = AnsibleModule(
         argument_spec={
-            'state': {'required': False, 'default': 'present'}, 
-            'consumer_key': {'required': True}, 
-            'consumer_secret_key': {'required': True}, 
-            'access_token': {'required': True}, 
-            'access_token_secret': {'required': True}, 
+            'state': {'required': False, 'default': 'present'},
+            'consumer_key': {'required': True},
+            'consumer_secret_key': {'required': True},
+            'access_token': {'required': True},
+            'access_token_secret': {'required': True},
             'tweet': {'required': True}
         },
     )
