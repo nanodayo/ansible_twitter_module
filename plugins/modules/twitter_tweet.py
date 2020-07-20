@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-# Copyright: (c) 2019, Daisuke Matsui <nanodayo.work@gmail.com>
+# Copyright: (c) 2020, Daisuke Matsui <dmatsui@redhat.com>
 
 ANSIBLE_METADATA = {'metadata_version': '1.1',
                     'status': ['preview'],
@@ -46,11 +46,14 @@ def main():
     )
     #tweet_text = module.params.get('tweet').decode('utf-8')
     tweet_text = module.params.get('tweet')
-    tweet_result = Twitter(auth=OAuth(
-                                    module.params.get('access_token'),
-                                    module.params.get('access_token_secret'),
-                                    module.params.get('consumer_key'),
-                                    module.params.get('consumer_secret_key')))
+    tweet_result = Twitter(
+        auth = OAuth(
+            module.params.get('access_token'),
+            module.params.get('access_token_secret'),
+            module.params.get('consumer_key'),
+            module.params.get('consumer_secret_key')
+        )
+    )
     tweet_result.statuses.update(status=tweet_text)
     changed = True
 
