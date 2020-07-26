@@ -1,6 +1,10 @@
 #!/usr/bin/python
+"""tweet module for ansible
+ Copyright: (c) 2020, Daisuke Matsui <dmatsui@redhat.com>
+"""
 
-# Copyright: (c) 2020, Daisuke Matsui <dmatsui@redhat.com>
+from ansible.module_utils.basic import AnsibleModule
+from twitter import Twitter, OAuth
 
 ANSIBLE_METADATA = {'metadata_version': '1.1',
                     'status': ['preview'],
@@ -25,15 +29,13 @@ EXAMPLES = '''
     access_token_secret: "{{ access_token_secret }}"
 '''
 
-from ansible.module_utils.basic import AnsibleModule
-import sys
-import codecs
-from twitter import *
-
 RETURN = '''
 '''
 
+
 def main():
+    """main method post tweet
+    """
     module = AnsibleModule(
         argument_spec={
             'state': {'required': False, 'default': 'present'},
@@ -44,10 +46,9 @@ def main():
             'tweet': {'required': True}
         },
     )
-    #tweet_text = module.params.get('tweet').decode('utf-8')
     tweet_text = module.params.get('tweet')
     tweet_result = Twitter(
-        auth = OAuth(
+        auth=OAuth(
             module.params.get('access_token'),
             module.params.get('access_token_secret'),
             module.params.get('consumer_key'),
@@ -56,6 +57,7 @@ def main():
     )
     tweet_result.statuses.update(status=tweet_text)
     changed = True
+    module.exit_json(changed=changed, item={'tweet': tweet_text})
 
-    module.exit_json(changed=changed, item={'tweet' : tweet_text})
+
 main()
