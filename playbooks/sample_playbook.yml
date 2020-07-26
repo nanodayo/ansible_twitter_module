@@ -1,3 +1,4 @@
+---
 - name: test for twitter module
   hosts: all
   connection: local
@@ -18,4 +19,3 @@
         consumer_secret_key: "{{ consumer_secret_key }}"
         access_token: "{{ access_token }}"
         access_token_secret: "{{ access_token_secret }}"
-
