@@ -4,8 +4,7 @@
 """
 
 from ansible.module_utils.basic import AnsibleModule
-#from twitter import Twitter, OAuth
-from twitter import *
+from twitter import Twitter, OAuth
 
 ANSIBLE_METADATA = {'metadata_version': '1.1',
                     'status': ['preview'],
