@@ -3,8 +3,10 @@
  Copyright: (c) 2020, Daisuke Matsui <dmatsui@redhat.com>
 """
 
+import sys
 from ansible.module_utils.basic import AnsibleModule
 from twitter import Twitter, OAuth
+
 
 ANSIBLE_METADATA = {'metadata_version': '1.1',
                     'status': ['preview'],
@@ -33,8 +35,8 @@ RETURN = '''
 '''
 
 
-def main():
-    """main method post tweet
+def tweet():
+    """tweet post method
     """
     module = AnsibleModule(
         argument_spec={
@@ -55,9 +57,27 @@ def main():
             module.params.get('consumer_secret_key')
         )
     )
-    tweet_result.statuses.update(status=tweet_text)
+#    try:
+#        tweet_handle = tweet_result.statuses.update(status=tweet_text)
+#        changed = True
+#    except:
+#        print("error!", file=sys.stderr)
+#        changed = False
+#        module.exit_json(changed=changed, item={'tweet': tweet_text})
+    tweet_handle = tweet_result.statuses.update(status=tweet_text)
+    print("DEBUG: tweet_handle", file=sys.stderr)
+    print(vars(tweet_handle), file=sys.stderr)
+    print("DEBUG: tweet_handle.headers", file=sys.stderr)
+    print(vars(tweet_handle.headers), file=sys.stderr)
     changed = True
     module.exit_json(changed=changed, item={'tweet': tweet_text})
 
 
-main()
+def main():
+    """main method
+    """
+    tweet()
+
+
+if __name__ == '__main__':
+    main()
