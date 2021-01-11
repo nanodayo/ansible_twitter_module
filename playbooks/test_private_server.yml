@@ -1,0 +1,30 @@
+---
+- name: test for twitter module
+  hosts: all
+  connection: local
+  gather_facts: false
+  vars:
+    server: localhost:5000
+    https: False
+    consumer_key: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+    consumer_secret_key: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+    access_token: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+    access_token_secret: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+    tweet: "This tweet posted by ansible module"
+
+  tasks:
+    - name: tweet
+      twitter_tweet:
+        state: present
+        server: "{{ server }}"
+        https: "{{ https }}"
+        tweet: "{{ tweet }}"
+        consumer_key: "{{ consumer_key }}"
+        consumer_secret_key: "{{ consumer_secret_key }}"
+        access_token: "{{ access_token }}"
+        access_token_secret: "{{ access_token_secret }}"
+      register: result
+
+    - name: debug
+      debug:
+        var: result

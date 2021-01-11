@@ -24,11 +24,11 @@ EXAMPLES = '''
 - name: tweet
   twitter_tweet:
     state: present
-    tweet: "nya-n"
     consumer_key: "{{ consumer_key }}"
     consumer_secret_key: "{{ consumer_secret_key }}"
     access_token: "{{ access_token }}"
     access_token_secret: "{{ access_token_secret }}"
+    tweet: "this tweet posted by ansible module"
 '''
 
 RETURN = '''
@@ -42,6 +42,8 @@ def tweet():
     module = AnsibleModule(
         argument_spec={
             'state': {'required': False, 'default': 'present'},
+            'server': {'required': False, 'default': 'api.twitter.com'},
+            'https': {'required': False, 'type': 'bool', 'default': True},
             'consumer_key': {'required': True},
             'consumer_secret_key': {'required': True},
             'access_token': {'required': True},
@@ -56,7 +58,9 @@ def tweet():
             module.params.get('access_token_secret'),
             module.params.get('consumer_key'),
             module.params.get('consumer_secret_key')
-        )
+        ),
+        domain=module.params.get('server'),
+        secure=module.params.get('https')
     )
     try:
         tweet_result.statuses.update(status=tweet_text)
