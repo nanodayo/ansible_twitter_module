@@ -3,9 +3,9 @@
  Copyright: (c) 2020, Daisuke Matsui <dmatsui@redhat.com>
 """
 
-import sys
 from ansible.module_utils.basic import AnsibleModule
 from twitter import Twitter, OAuth
+from twitter.api import TwitterHTTPError
 
 
 ANSIBLE_METADATA = {'metadata_version': '1.1',
@@ -38,6 +38,7 @@ RETURN = '''
 def tweet():
     """tweet post method
     """
+    changed = None
     module = AnsibleModule(
         argument_spec={
             'state': {'required': False, 'default': 'present'},
@@ -57,20 +58,30 @@ def tweet():
             module.params.get('consumer_secret_key')
         )
     )
-#    try:
-#        tweet_handle = tweet_result.statuses.update(status=tweet_text)
-#        changed = True
-#    except:
-#        print("error!", file=sys.stderr)
-#        changed = False
-#        module.exit_json(changed=changed, item={'tweet': tweet_text})
-    tweet_handle = tweet_result.statuses.update(status=tweet_text)
-    print("DEBUG: tweet_handle", file=sys.stderr)
-    print(vars(tweet_handle), file=sys.stderr)
-    print("DEBUG: tweet_handle.headers", file=sys.stderr)
-    print(vars(tweet_handle.headers), file=sys.stderr)
-    changed = True
-    module.exit_json(changed=changed, item={'tweet': tweet_text})
+    try:
+        tweet_result.statuses.update(status=tweet_text)
+        changed = True
+        module.exit_json(changed=changed, item={'tweet': tweet_text})
+    except TwitterHTTPError as debug_info:
+        for error in debug_info.response_data.get("errors"):
+            if error.get("code") == 187:
+                changed = False
+                module.exit_json(
+                    changed=changed,
+                    item={
+                        'tweet': tweet_text,
+                        'debug_info': debug_info.response_data
+                    }
+                )
+        failed = True
+        module.exit_json(
+            changed=changed,
+            failed=failed,
+            item={
+                'tweet': tweet_text,
+                'debug_info': debug_info.response_data
+            }
+        )
 
 
 def main():
